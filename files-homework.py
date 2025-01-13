@@ -61,23 +61,23 @@ def write_file(file_name_1, file_name_2, file_name_3):
     file_1 = file_name_1
     file_2 = file_name_2
     file_3 = file_name_3
-    data_dict = {}
+    data_list = []
     with open(file_1, 'r', encoding='utf-8') as f:
-       data_dict[len(f.readlines())] = file_1
+       data_list=[[int(len(f.readlines())), file_1]]
     with open(file_2, 'r', encoding='utf-8') as f:
-       data_dict[len(f.readlines())] = file_2
+       data_list.append([int(len(f.readlines())), file_2])
     with open(file_3, 'r', encoding='utf-8') as f:
-       data_dict[len(f.readlines())] = file_3
-    sorted_dict = sorted(data_dict)
+       data_list.append([int(len(f.readlines())), file_3])
+    sorted_list = sorted(data_list)
     with open('result.txt', 'w', encoding='utf-8') as f:
        f.write('')
-    for rank in sorted_dict:
-        with open(data_dict[rank], 'r', encoding='utf-8') as f:
+    for element in sorted_list:
+        with open(element[1], 'r', encoding='utf-8') as f:
             data = f.read()
         with open('result.txt', 'a', encoding='utf-8') as f:
-            f.write(data_dict[rank])
+            f.write(element[1])
             f.write('\n')
-            f.write(str(rank))
+            f.write(str(element[0]))
             f.write('\n')
             f.write(data)
             f.write('\n')
